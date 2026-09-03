@@ -61,7 +61,7 @@ export interface DocumentMeta {
 
 export interface NormalizedTransaction {
   id: string;
-  date: string; // ISO date
+  date: string | null; // ISO date
   description: string;
   reference: string;
   debit: number | null;
@@ -71,6 +71,21 @@ export interface NormalizedTransaction {
   category: string | null;
   confidence: number; // 0–1
   needsReview: boolean;
+  rawText?: string;
+  sourcePage?: number;
+  sourceLineStart?: number;
+  sourceLineEnd?: number;
+  sourceBoundingBox?: { x: number; y: number; width: number; height: number };
+  financialEvidence?: FinancialEvidence[];
+}
+
+export interface FinancialEvidence {
+  rawOCRValue: string;
+  normalizedValue: number | null;
+  confidence: number;
+  needsReview: boolean;
+  sourcePage?: number;
+  sourceBoundingBox?: { x: number; y: number; width: number; height: number };
 }
 
 export interface ValidationSummary {

@@ -64,8 +64,10 @@ export function hasUsableTextLayer(result: PdfExtractionResult): boolean {
   const hasNumberPattern = /\d+[\.,]\d{2}/.test(result.text); // Currency amounts
   
   // Must have decent length and some structured patterns
-  const minTextLength = 500; // At least 500 chars of text
+  const minTextLength = 100;
   const hasMinLength = result.text.trim().length >= minTextLength;
+  const alphaNumericCount = (result.text.match(/[A-Za-z0-9]/g) || []).length;
+  const hasUsefulContent = alphaNumericCount >= 40 && (hasDatePattern || hasNumberPattern);
   
-  return hasMinLength && (hasAccountPattern || (hasDatePattern && hasNumberPattern));
+  return hasMinLength && hasUsefulContent && (hasAccountPattern || (hasDatePattern && hasNumberPattern));
 }

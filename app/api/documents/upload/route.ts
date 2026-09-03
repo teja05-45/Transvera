@@ -3,6 +3,7 @@ import { v4 as uuid } from "uuid";
 import { storeUploadedFile } from "@/lib/services/file-store";
 
 export async function POST(req: NextRequest) {
+  const startedAt = performance.now();
   try {
     const formData = await req.formData();
     const file = formData.get("file") as File;
@@ -42,6 +43,7 @@ export async function POST(req: NextRequest) {
       status: "uploaded",
       fileName: file.name,
       sizeBytes: file.size,
+      processingMs: Math.round(performance.now() - startedAt),
     });
   } catch (error) {
     console.error("Upload error:", error);
