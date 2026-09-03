@@ -1,0 +1,40 @@
+# requirements.txt — LedgerFlow AI extraction/OCR backend service
+#
+# The Next.js app has no Python code; its dependencies are in package.json.
+# This file is for a *separate*, optional Python microservice that would
+# implement the real PDF-text-extraction + OCR fallback the app's
+# lib/pdf and lib/ocr interfaces currently stub out (see
+# ConverterWorkspace's "backend-unavailable" state). Wire it in behind
+# an internal API route (e.g. POST /api/documents/:id/analyze calling
+# out to this service) rather than replacing the Next.js app itself.
+
+# --- API framework ---
+fastapi==0.115.6
+uvicorn[standard]==0.32.1
+python-multipart==0.0.20
+pydantic==2.10.4
+
+# --- PDF text extraction ---
+pdfplumber==0.11.4        # table/text extraction from text-layer PDFs
+PyMuPDF==1.25.1           # fast page rendering + text extraction, also used to rasterize pages for OCR
+pypdf==5.1.0              # PDF metadata, page count, password-protection detection
+
+# --- OCR fallback for scanned statements ---
+pytesseract==0.3.13       # requires the tesseract-ocr system binary installed separately
+pillow==11.0.0            # image handling for OCR input
+
+# --- Transaction parsing / normalization ---
+pandas==2.2.3
+python-dateutil==2.9.0.post0
+regex==2024.11.6
+
+# --- Job queue integration (matches the Redis + BullMQ queue in the Node app) ---
+redis==5.2.1
+rq==2.1.0                 # or drop this and use a BullMQ-compatible worker if staying in one queue
+
+# --- Object storage (matches the S3-compatible storage in the architecture doc) ---
+boto3==1.35.99
+
+# --- Testing ---
+pytest==8.3.4
+httpx==0.28.1             # for testing FastAPI endpoints

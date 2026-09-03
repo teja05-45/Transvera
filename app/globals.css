@@ -1,0 +1,110 @@
+@import "tailwindcss";
+
+/* ==========================================================================
+   LedgerFlow AI — Design Tokens
+   Concept: ledger paper meets financial precision.
+   Cool paper background, deep ink-navy text, one accent (ledger green).
+   ========================================================================== */
+
+:root {
+  /* Core palette */
+  --paper: #F6F7F5;          /* base background — cool, not warm-cream */
+  --paper-raised: #FFFFFF;   /* cards / raised surfaces */
+  --ink: #10182B;            /* primary text — near-black navy */
+  --ink-soft: #4A5163;       /* secondary text */
+  --ink-faint: #8A90A0;      /* tertiary / placeholder text */
+  --rule: #DDE1E0;           /* hairline borders / ledger rules */
+  --rule-strong: #C3C9C7;
+
+  --ledger: #1F6B4E;         /* primary accent — deep ledger green */
+  --ledger-strong: #164F3A;
+  --ledger-tint: #E7F0EB;    /* accent background tint */
+
+  --gold: #B9862F;           /* secondary accent — ink-gold, used sparingly */
+  --gold-tint: #F6EEDD;
+
+  --success: #1F6B4E;
+  --success-tint: #E7F0EB;
+  --warning: #B9862F;
+  --warning-tint: #F6EEDD;
+  --error: #B3402E;
+  --error-tint: #F7E9E5;
+
+  /* Radii — restrained: sharp for content, rounded for interactive controls */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 14px;
+
+  /* Shadow — one soft elevation, used sparingly */
+  --shadow-card: 0 1px 2px rgba(16, 24, 43, 0.04), 0 8px 24px -12px rgba(16, 24, 43, 0.12);
+}
+
+@theme inline {
+  --color-paper: var(--paper);
+  --color-paper-raised: var(--paper-raised);
+  --color-ink: var(--ink);
+  --color-ink-soft: var(--ink-soft);
+  --color-ink-faint: var(--ink-faint);
+  --color-rule: var(--rule);
+  --color-rule-strong: var(--rule-strong);
+  --color-ledger: var(--ledger);
+  --color-ledger-strong: var(--ledger-strong);
+  --color-ledger-tint: var(--ledger-tint);
+  --color-gold: var(--gold);
+  --color-gold-tint: var(--gold-tint);
+  --color-success: var(--success);
+  --color-success-tint: var(--success-tint);
+  --color-warning: var(--warning);
+  --color-warning-tint: var(--warning-tint);
+  --color-error: var(--error);
+  --color-error-tint: var(--error-tint);
+
+  --font-display: "Fraunces", Georgia, "Times New Roman", serif;
+  --font-sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-mono: "IBM Plex Mono", "SFMono-Regular", Menlo, Consolas, monospace;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-sans);
+}
+
+/* Ledger-rule texture used as a deliberate structural device on the hero
+   and section dividers — not decoration, it signals "this is a ledger". */
+.ledger-rules {
+  background-image: repeating-linear-gradient(
+    to bottom,
+    transparent,
+    transparent 27px,
+    var(--rule) 27px,
+    var(--rule) 28px
+  );
+}
+
+.tabular-nums {
+  font-variant-numeric: tabular-nums;
+}
+
+::selection {
+  background: var(--ledger-tint);
+  color: var(--ledger-strong);
+}
+
+:focus-visible {
+  outline: 2px solid var(--ledger);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
